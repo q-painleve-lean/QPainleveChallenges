@@ -1,0 +1,38 @@
+name: Comparator
+
+on:
+  workflow_dispatch:
+    inputs:
+      runner:
+        description: Ubuntu GitHub-hosted runner label
+        type: string
+        default: ubuntu-24.04
+
+permissions:
+  contents: read
+
+jobs:
+  comparator:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ${{ inputs.runner }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee # v1.7.1
+        with:
+          auto-config: "false"
+          use-github-cache: "false"
+          use-mathlib-cache: "false"
+      - name: Set up bubblewrap
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bubblewrap
+          if [ "$(sysctl -n kernel.apparmor_restrict_unprivileged_userns 2>/dev/null || echo 0)" = 1 ]; then
+            printf '%s\n' 'abi <abi/4.0>,' 'include <tunables/global>' \
+              'profile bwrap /usr/bin/bwrap flags=(unconfined) {' '  userns,' '}' \
+              | sudo tee /etc/apparmor.d/bwrap >/dev/null
+            sudo apparmor_parser -r /etc/apparmor.d/bwrap
+          fi
+          bwrap --ro-bind / / --unshare-user --unshare-net /usr/bin/true
+      - run: lake comparator --config comparator/SignedClusterModularGroup.json

@@ -1,0 +1,19 @@
+name = "QPainleveChallenges"
+defaultTargets = ["Challenge", "Solution"]
+platformIndependent = true
+
+# This revision contains the cyclic-ray comparison and the merged word API.
+[[require]]
+name = "QPainleve"
+git = "https://github.com/q-painleve-lean/QPainleve"
+rev = "afbbf833d803488cd95d62e6188fdfe9c094d2a4"
+
+[[lean_lib]]
+name = "Challenge"
+roots = []
+globs = ["Challenge.+"]
+
+[[lean_lib]]
+name = "Solution"
+roots = []
+globs = ["Solution.+"]

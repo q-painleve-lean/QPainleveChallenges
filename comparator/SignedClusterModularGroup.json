@@ -1,0 +1,6 @@
+{
+  "challenge_module": "Challenge.SignedClusterModularGroup",
+  "solution_module": "Solution.SignedClusterModularGroup",
+  "theorem_names": ["QPainleveChallenge.Toric.nonempty_mulEquiv_signedBoundaryIsometryGroup"],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"]
+}
