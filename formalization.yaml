@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+
+version: "v0.4"
+
+project:
+  name: QPainleveChallenges
+  description: >-
+    Lean challenges and reference solutions for the signed cluster modular groups
+    of toric presentations and their signed Picard-lattice isometries.
+  authors:
+    - The QPainleve contributors
+  license: Apache-2.0
+
+repository:
+  substantive_formalization:
+    id: https://github.com/q-painleve-lean/QPainleve
+    revision: afbbf833d803488cd95d62e6188fdfe9c094d2a4
+
+sources:
+  - title: Signed cluster modular groups of anticanonical cycles
+    id: https://github.com/q-painleve-lean/QPainleveRoadmap/blob/main/QPainleveRoadmap/SignedClusterModularGroup/README.md
+    type: web post
+    location: Sections 7.2 and 8.2–8.3
+    relationship: formalizes
+
+status:
+  scope: >-
+    The signed cluster modular group of a toric presentation satisfying the
+    target-pair hypotheses is isomorphic to the signed boundary isometry group.
+    The solution also proves the isomorphism for the four-vertex and
+    one-component examples.
+  main_results:
+    - declaration: QPainleveChallenge.Toric.nonempty_mulEquiv_signedBoundaryIsometryGroup
+      file: Solution/SignedClusterModularGroup.lean
+      sorry_count: 0
+      axioms:
+        - propext
+        - Classical.choice
+        - Quot.sound
+      comparator_config: comparator/SignedClusterModularGroup.json
+
+automation:
+  methods:
+    - method: agent
+      framework: Claude Code
+    - method: agent
+      framework: Codex
+
+review:
+  status: self-assessed

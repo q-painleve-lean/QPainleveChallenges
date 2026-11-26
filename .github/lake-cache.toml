@@ -1,0 +1,5 @@
+[[cache.service]]
+name = "tauceti"
+kind = "s3"
+artifactEndpoint = "https://cache.taucetiproject.org/artifacts"
+revisionEndpoint = "https://cache.taucetiproject.org/revisions"
